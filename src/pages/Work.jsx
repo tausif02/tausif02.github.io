@@ -1,3 +1,4 @@
+/* work.jsx */
 import { useEffect, useMemo, useRef, useState } from "react";
 import "../styles/shared.css";
 import "../styles/work.css";
@@ -10,16 +11,25 @@ const experienceByYear = {
       company: "NASA Lunabotics Competition",
       location: "Saginaw Valley State University",
       date: "Aug 2025 – Present",
-      kicker: "Current Role",
-      tag: "Leadership / Robotics",
+      kicker: "Current Leadership Role",
+      tag: "Robotics / Systems Engineering",
       summary:
-        "Leading cross-functional collaboration across software, electrical, and mechanical teams while helping drive autonomy, documentation, and subsystem integration.",
-      skills: ["Python", "OpenCV", "ROS", "Linux", "Systems Engineering"],
+        "Leading software, electrical, and mechanical integration for a NASA Lunabotics rover while supporting robot software, autonomy, testing, documentation, and subsystem coordination.",
+      skills: [
+        "Python",
+        "Linux",
+        "OpenCV",
+        "YOLO",
+        "Kinect",
+        "TCP",
+        "MJPEG",
+        "Arduino",
+      ],
       bullets: [
-        "Lead collaboration across software, electrical, and mechanical teams.",
-        "Develop autonomy and object detection workflows for robot navigation.",
-        "Manage technical documentation, requirements, and operational procedures.",
-        "Coordinate milestones, tasks, testing, and subsystem integration.",
+        "Developed a Raspberry Pi-based robot software stack using Python, Linux, OpenCV, YOLO, Kinect RGB/depth sensing, TCP sockets, MJPEG streaming, and Arduino serial communication.",
+        "Implemented and debugged real-time teleoperation and autonomy features including keyboard/Xbox input handling, command parsing, emergency stop states, telemetry updates, and autonomous mode transitions.",
+        "Built hybrid obstacle-detection logic using object detection and depth data to support navigation decisions such as forward motion, stopping, turning, recovery behavior, and low-visibility handling.",
+        "Created NASA-style systems engineering documentation including requirements, operational procedures, subsystem interfaces, verification planning, design reviews, and milestone tracking.",
       ],
     },
     {

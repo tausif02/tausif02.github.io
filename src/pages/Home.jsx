@@ -38,8 +38,6 @@ export default function Home() {
     const subText =
       "I build full-stack applications, robotics systems, and technical support solutions with a focus on clean design, practical impact, and meaningful user experiences.";
 
-    document.body.classList.add("nav-ready", "social-ready", "is-ready");
-
     if (heroLine1) heroLine1.textContent = "";
     if (heroLine2) heroLine2.textContent = "";
     if (typedSubtext) typedSubtext.textContent = "";
@@ -53,8 +51,6 @@ export default function Home() {
     });
 
     return () => {
-      document.body.classList.remove("nav-ready", "social-ready", "is-ready");
-
       if (heroLine1 && heroLine1._typingTimer) {
         clearInterval(heroLine1._typingTimer);
       }
