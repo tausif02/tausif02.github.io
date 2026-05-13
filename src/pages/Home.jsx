@@ -1,3 +1,4 @@
+/* Home.jsx */
 import { useEffect } from "react";
 import "../styles/shared.css";
 import "../styles/home.css";
@@ -128,8 +129,8 @@ export default function Home() {
         }, 420);
       });
     }
-
-    startLoadingSequence();
+    document.body.classList.add("nav-ready", "social-ready", "is-ready");
+    startHeroSequence();
 
     return () => {
       document.body.classList.remove("nav-ready", "social-ready", "is-ready");
@@ -138,31 +139,6 @@ export default function Home() {
 
   return (
     <>
-      <div className="loading-screen" id="loadingScreen" aria-hidden="true">
-        <div className="loading-marquee">
-          <div className="loading-marquee-track">
-            <span className="loading-role">ROBOTICS AUTONOMY ENGINEER</span>
-            <span className="loading-dot">•</span>
-            <span className="loading-role">FULL STACK DEVELOPER</span>
-            <span className="loading-dot">•</span>
-            <span className="loading-role">ROBOTICS AUTONOMY ENGINEER</span>
-            <span className="loading-dot">•</span>
-            <span className="loading-role">FULL STACK DEVELOPER</span>
-          </div>
-        </div>
-
-        <div className="loading-pill-wrap" id="loadingPillWrap">
-          <div className="loading-pill">
-            <div className="loading-pill-glow"></div>
-
-            <div className="loading-pill-content">
-              <span className="loading-square"></span>
-              <span className="loading-pill-text" id="loadingText"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <main className="page-main">
         <section className="hero" id="home">
           <div className="container hero-container">
