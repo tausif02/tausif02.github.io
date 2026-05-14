@@ -313,6 +313,7 @@ export default function Work() {
 
   const sectionRefs = useRef({});
   const timelineLineRef = useRef(null);
+  const yearButtonRefs = useRef({});
   const [dotY, setDotY] = useState(0);
   const [progressScale, setProgressScale] = useState(0);
 
@@ -324,17 +325,12 @@ export default function Work() {
 
   useEffect(() => {
     function updateTimelineState() {
-      if (window.innerWidth <= 1180 || !timelineLineRef.current) {
-        setDotY(0);
-        setProgressScale(0);
-        return;
-      }
-
       const viewportCenter = window.scrollY + window.innerHeight / 2;
 
       const sectionCenters = yearOrder.map((yearKey) => {
         const section = sectionRefs.current[yearKey];
         if (!section) return 0;
+
         const rect = section.getBoundingClientRect();
         return rect.top + window.scrollY + rect.height / 2;
       });
@@ -344,6 +340,7 @@ export default function Work() {
 
       sectionCenters.forEach((center, index) => {
         const distance = Math.abs(center - viewportCenter);
+
         if (distance < minDistance) {
           minDistance = distance;
           activeIndex = index;
@@ -351,6 +348,12 @@ export default function Work() {
       });
 
       setActiveYear(yearOrder[activeIndex]);
+
+      if (window.innerWidth <= 1180 || !timelineLineRef.current) {
+        setDotY(0);
+        setProgressScale(0);
+        return;
+      }
 
       let nextDotY = 0;
 
@@ -375,11 +378,13 @@ export default function Work() {
       }
 
       const safeLineHeight = Math.max(timelineLineRef.current.offsetHeight, 1);
+
       setDotY(nextDotY);
       setProgressScale(Math.min(Math.max(nextDotY / safeLineHeight, 0), 1));
     }
 
     updateTimelineState();
+
     window.addEventListener("scroll", updateTimelineState, { passive: true });
     window.addEventListener("resize", updateTimelineState);
 
@@ -388,6 +393,18 @@ export default function Work() {
       window.removeEventListener("resize", updateTimelineState);
     };
   }, [yearStops]);
+
+  useEffect(() => {
+    const activeButton = yearButtonRefs.current[activeYear];
+
+    if (!activeButton) return;
+
+    activeButton.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [activeYear]);
 
   function toggleCard(yearKey, cardId) {
     setExpandedByYear((prev) => ({
@@ -433,6 +450,9 @@ export default function Work() {
                 {yearOrder.map((yearKey) => (
                   <button
                     key={yearKey}
+                    ref={(el) => {
+                      yearButtonRefs.current[yearKey] = el;
+                    }}
                     className={`year ${activeYear === yearKey ? "active-year" : ""}`}
                     data-year={yearKey}
                     type="button"
