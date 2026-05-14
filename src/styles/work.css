@@ -718,6 +718,20 @@
     scroll-snap-type: x mandatory;
   }
 
+  .timeline-years {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    cursor: grab;
+  }
+
+  .timeline-years:active {
+    cursor: grabbing;
+  }
+
+  .year {
+    user-select: none;
+    -webkit-user-select: none;
+  }
   .timeline-years::-webkit-scrollbar {
     display: none;
   }

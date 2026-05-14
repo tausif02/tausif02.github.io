@@ -315,6 +315,7 @@ export default function Work() {
   const sectionRefs = useRef({});
   const timelineLineRef = useRef(null);
   const yearButtonRefs = useRef({});
+  const isSyncingFromDial = useRef(false);
 
   useEffect(() => {
     document.body.classList.add("work-mobile-page");
@@ -383,7 +384,9 @@ export default function Work() {
         }
       });
 
-      setActiveYear(yearOrder[activeIndex]);
+      if (!isSyncingFromDial.current) {
+        setActiveYear(yearOrder[activeIndex]);
+      }
 
       if (window.innerWidth <= 1180 || !timelineLineRef.current) {
         setDotY(0);
@@ -431,6 +434,8 @@ export default function Work() {
   }, [yearStops]);
 
   useEffect(() => {
+    if (isSyncingFromDial.current) return;
+
     const activeButton = yearButtonRefs.current[activeYear];
 
     if (!activeButton) return;
@@ -441,6 +446,7 @@ export default function Work() {
       block: "nearest",
     });
   }, [activeYear]);
+
   function toggleCard(yearKey, cardId) {
     setExpandedByYear((prev) => ({
       ...prev,
@@ -452,10 +458,73 @@ export default function Work() {
     const section = sectionRefs.current[yearKey];
     if (!section) return;
 
-    section.scrollIntoView({
+    setActiveYear(yearKey);
+
+    const top = section.getBoundingClientRect().top + window.scrollY - 95;
+
+    window.scrollTo({
+      top,
       behavior: "smooth",
-      block: "center",
     });
+  }
+
+  function handleDialScroll(event) {
+    const dial = event.currentTarget;
+
+    if (!dial || window.innerWidth > 1180) return;
+
+    if (dial._scrollTimer) {
+      clearTimeout(dial._scrollTimer);
+    }
+
+    dial._scrollTimer = setTimeout(() => {
+      const buttons = yearOrder
+        .map((yearKey) => ({
+          yearKey,
+          button: yearButtonRefs.current[yearKey],
+        }))
+        .filter((item) => item.button);
+
+      if (buttons.length === 0) return;
+
+      const dialRect = dial.getBoundingClientRect();
+      const dialCenter = dialRect.left + dialRect.width / 2;
+
+      let closestYear = buttons[0].yearKey;
+      let closestDistance = Infinity;
+
+      buttons.forEach(({ yearKey, button }) => {
+        const buttonRect = button.getBoundingClientRect();
+        const buttonCenter = buttonRect.left + buttonRect.width / 2;
+        const distance = Math.abs(buttonCenter - dialCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestYear = yearKey;
+        }
+      });
+
+      if (closestYear === activeYear) return;
+
+      setActiveYear(closestYear);
+
+      isSyncingFromDial.current = true;
+
+      const section = sectionRefs.current[closestYear];
+
+      if (section) {
+        const top = section.getBoundingClientRect().top + window.scrollY - 95;
+
+        window.scrollTo({
+          top,
+          behavior: "smooth",
+        });
+      }
+
+      window.setTimeout(() => {
+        isSyncingFromDial.current = false;
+      }, 550);
+    }, 120);
   }
 
   return (
@@ -489,7 +558,7 @@ export default function Work() {
                   aria-hidden="true"
                 ></div>
 
-                <div className="timeline-years">
+                <div className="timeline-years" onScroll={handleDialScroll}>
                   {yearOrder.map((yearKey) => (
                     <button
                       key={yearKey}
