@@ -309,9 +309,8 @@ body.is-ready .footer {
   }
 }
 
-
 /* ========================= */
-/* FINAL MOBILE HOME CENTER  */
+/* MOBILE HOME CENTER        */
 /* ========================= */
 
 @media (max-width: 768px) {
@@ -350,15 +349,11 @@ body.is-ready .footer {
     margin: 0 auto !important;
     text-align: center;
 
-    transform: translateY(-10px) scale(1) !important;
+    transform: translateY(0) scale(1) !important;
   }
 
   body.is-ready .hero-content {
-    transform: translateY(-10px) scale(1) !important;
-  }
-
-  .hero-code-wrap {
-    margin-bottom: 1.25rem;
+    transform: translateY(0) scale(1) !important;
   }
 
   .hero-description {
