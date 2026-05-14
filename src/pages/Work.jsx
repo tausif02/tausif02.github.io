@@ -302,6 +302,7 @@ const yearLabels = {
 
 export default function Work() {
   const [activeYear, setActiveYear] = useState("present");
+  const [showMobileDial, setShowMobileDial] = useState(false);
   const [expandedByYear, setExpandedByYear] = useState({
     present: null,
     2025: null,
@@ -331,6 +332,32 @@ export default function Work() {
     const safeCount = Math.max(yearOrder.length - 1, 1);
     return yearOrder.map((_, index) => (lineHeight / safeCount) * index);
   }, [activeYear]);
+
+  useEffect(() => {
+    function updateDialVisibility() {
+      const presentSection = sectionRefs.current.present;
+
+      if (!presentSection) return;
+
+      const rect = presentSection.getBoundingClientRect();
+
+      /*
+      Shows the dial once Present reaches near the top.
+      Hides it again when scrolling back above Present.
+    */
+      setShowMobileDial(rect.top <= 95);
+    }
+
+    updateDialVisibility();
+
+    window.addEventListener("scroll", updateDialVisibility, { passive: true });
+    window.addEventListener("resize", updateDialVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", updateDialVisibility);
+      window.removeEventListener("resize", updateDialVisibility);
+    };
+  }, []);
 
   useEffect(() => {
     function updateTimelineState() {
@@ -446,7 +473,10 @@ export default function Work() {
       </section>
 
       <section className="work-layout">
-        <aside className="timeline-rail-column">
+        <aside
+          className={`timeline-rail-column ${showMobileDial ? "dial-visible" : ""}`}
+        >
+          {" "}
           <div className="timeline-rail-sticky">
             <div className="timeline-rail-header">
               <p className="timeline-mini-label">Selected Year</p>
