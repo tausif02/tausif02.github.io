@@ -1,5 +1,5 @@
 /* SocialSidebar.jsx */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../styles/shared.css";
 
 function GithubIcon() {
@@ -72,6 +72,28 @@ function ShareIcon() {
 
 export default function SocialSidebar() {
   const [open, setOpen] = useState(false);
+  const mobileSocialRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!open) return;
+
+      if (
+        mobileSocialRef.current &&
+        !mobileSocialRef.current.contains(event.target)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [open]);
 
   return (
     <>
@@ -106,13 +128,17 @@ export default function SocialSidebar() {
         </a>
       </aside>
 
-      <div className={`mobile-social ${open ? "open" : ""}`}>
+      <div
+        ref={mobileSocialRef}
+        className={`mobile-social ${open ? "open" : ""}`}
+      >
         <div className="mobile-social-links" aria-label="Mobile social links">
           <a
             href="https://github.com/tausif02"
             target="_blank"
             rel="noreferrer"
             aria-label="GitHub"
+            onClick={() => setOpen(false)}
           >
             <GithubIcon />
           </a>
@@ -122,15 +148,28 @@ export default function SocialSidebar() {
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"
+            onClick={() => setOpen(false)}
           >
             <LinkedinIcon />
           </a>
 
-          <a href="#" target="_blank" rel="noreferrer" aria-label="Instagram">
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+            onClick={() => setOpen(false)}
+          >
             <InstagramIcon />
           </a>
 
-          <a href="#" target="_blank" rel="noreferrer" aria-label="Facebook">
+          <a
+            href="#"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook"
+            onClick={() => setOpen(false)}
+          >
             <FacebookIcon />
           </a>
         </div>
