@@ -777,7 +777,7 @@
 @media (max-width: 640px) {
   .work-page {
     width: min(100% - 24px, 1200px);
-    padding-top: 105px;
+    padding-top: 92px;
   }
 
   .work-hero {
@@ -800,7 +800,7 @@
   }
 
   .timeline-rail-column {
-    top: 66px;
+    top: 12px;
     margin-bottom: 30px;
   }
 

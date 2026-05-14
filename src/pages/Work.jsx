@@ -314,6 +314,15 @@ export default function Work() {
   const sectionRefs = useRef({});
   const timelineLineRef = useRef(null);
   const yearButtonRefs = useRef({});
+
+  useEffect(() => {
+    document.body.classList.add("work-mobile-page");
+
+    return () => {
+      document.body.classList.remove("work-mobile-page");
+    };
+  }, []);
+
   const [dotY, setDotY] = useState(0);
   const [progressScale, setProgressScale] = useState(0);
 
