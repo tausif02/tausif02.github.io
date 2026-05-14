@@ -476,7 +476,6 @@ export default function Work() {
         <aside
           className={`timeline-rail-column ${showMobileDial ? "dial-visible" : ""}`}
         >
-          {" "}
           <div className="timeline-rail-sticky">
             <div className="timeline-rail-header">
               <p className="timeline-mini-label">Selected Year</p>
