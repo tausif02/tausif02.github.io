@@ -551,8 +551,8 @@ export default function Work() {
               <h2>{yearLabels[activeYear]}</h2>
             </div>
 
-            <div className="timeline-rail">
-              <div className="timeline-dial-frame">
+            <div className="timeline-dial-frame">
+              <div className="timeline-dial-track">
                 <div
                   className="timeline-dial-center-line"
                   aria-hidden="true"
