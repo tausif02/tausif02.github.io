@@ -405,7 +405,6 @@ export default function Work() {
       block: "nearest",
     });
   }, [activeYear]);
-
   function toggleCard(yearKey, cardId) {
     setExpandedByYear((prev) => ({
       ...prev,
@@ -446,21 +445,28 @@ export default function Work() {
             </div>
 
             <div className="timeline-rail">
-              <div className="timeline-years">
-                {yearOrder.map((yearKey) => (
-                  <button
-                    key={yearKey}
-                    ref={(el) => {
-                      yearButtonRefs.current[yearKey] = el;
-                    }}
-                    className={`year ${activeYear === yearKey ? "active-year" : ""}`}
-                    data-year={yearKey}
-                    type="button"
-                    onClick={() => scrollToYear(yearKey)}
-                  >
-                    {yearKey === "present" ? "NOW" : yearKey}
-                  </button>
-                ))}
+              <div className="timeline-dial-frame">
+                <div
+                  className="timeline-dial-center-line"
+                  aria-hidden="true"
+                ></div>
+
+                <div className="timeline-years">
+                  {yearOrder.map((yearKey) => (
+                    <button
+                      key={yearKey}
+                      ref={(el) => {
+                        yearButtonRefs.current[yearKey] = el;
+                      }}
+                      className={`year ${activeYear === yearKey ? "active-year" : ""}`}
+                      data-year={yearKey}
+                      type="button"
+                      onClick={() => scrollToYear(yearKey)}
+                    >
+                      {yearKey === "present" ? "NOW" : yearKey}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="timeline-line-wrap">
