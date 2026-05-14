@@ -1,71 +1,64 @@
-/* index.css */
-@import "tailwindcss";
-
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-}
 /* ========================= */
-/* Mobile navbar + socials   */
+/* Mobile navbar refinement  */
 /* ========================= */
 
-.mobile-nav-pill,
-.mobile-social {
-  display: none;
-}
-
-/* Tablet / mobile */
 @media (max-width: 768px) {
-  .cursor-glow {
-    display: none !important;
-  }
-
   .topbar {
     width: 100%;
-    padding: 18px 14px 0;
+    padding: 16px 12px 0;
     display: flex;
     justify-content: center;
     pointer-events: none;
   }
 
-  .desktop-nav,
-  .desktop-social {
-    display: none !important;
-  }
-
   .mobile-nav-pill {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: min(94vw, 430px);
-    padding: 8px;
+
+    width: calc(100vw - 28px);
+    max-width: 390px;
+
+    gap: 4px;
+    padding: 7px;
+
     border-radius: 999px;
-    background: rgba(17, 24, 39, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(17, 24, 39, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.11);
+
     box-shadow:
       0 18px 45px rgba(0, 0, 0, 0.35),
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+
     pointer-events: auto;
   }
 
   .mobile-nav-link,
   .mobile-more-btn {
+    width: 100%;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     color: rgba(226, 232, 240, 0.78);
     text-decoration: none;
+
     border: 0;
     background: transparent;
-    font-size: 0.82rem;
-    font-weight: 650;
-    letter-spacing: -0.02em;
-    padding: 9px 11px;
+
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+
+    padding: 0;
     border-radius: 999px;
     line-height: 1;
+
     transition:
       color 180ms ease,
       background 180ms ease,
@@ -75,7 +68,7 @@ body,
   .mobile-nav-link.active,
   .mobile-more-btn.active {
     color: #ffffff;
-    background: rgba(255, 79, 129, 0.16);
+    background: rgba(255, 79, 129, 0.2);
   }
 
   .mobile-nav-link:active,
@@ -85,43 +78,51 @@ body,
 
   .mobile-more-wrap {
     position: relative;
+    width: 100%;
   }
 
   .mobile-more-btn {
-    display: flex;
-    align-items: center;
     gap: 4px;
     cursor: pointer;
   }
 
   .mobile-more-btn span {
     font-size: 0.7rem;
-    opacity: 0.75;
+    opacity: 0.7;
   }
 
   .mobile-more-menu {
     position: absolute;
     top: calc(100% + 12px);
     right: 0;
+
     min-width: 165px;
     padding: 8px;
+
     border-radius: 18px;
-    background: rgba(14, 20, 32, 0.95);
+    background: rgba(14, 20, 32, 0.96);
     border: 1px solid rgba(255, 255, 255, 0.12);
+
     box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
+
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
+
     animation: mobileMenuIn 180ms ease both;
   }
 
   .mobile-more-link {
     display: block;
+
     color: rgba(226, 232, 240, 0.82);
     text-decoration: none;
+
     font-size: 0.86rem;
     font-weight: 650;
+
     padding: 11px 12px;
     border-radius: 12px;
+
     transition:
       color 180ms ease,
       background 180ms ease;
@@ -132,123 +133,8 @@ body,
     color: #ffffff;
     background: rgba(255, 255, 255, 0.08);
   }
-
-  @keyframes mobileMenuIn {
-    from {
-      opacity: 0;
-      transform: translateY(-8px) scale(0.97);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .mobile-social {
-    position: fixed;
-    left: 18px;
-    bottom: 22px;
-    z-index: 80;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .mobile-social-toggle,
-  .mobile-social-links a {
-    width: 48px;
-    height: 48px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    color: rgba(248, 250, 252, 0.92);
-    background: rgba(17, 24, 39, 0.86);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow:
-      0 14px 30px rgba(0, 0, 0, 0.38),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-
-  .mobile-social-toggle {
-    border: 1px solid rgba(255, 79, 129, 0.38);
-    cursor: pointer;
-    font-size: 1.65rem;
-    line-height: 1;
-    transition:
-      transform 180ms ease,
-      background 180ms ease,
-      border-color 180ms ease;
-  }
-
-  .mobile-social-toggle svg {
-    width: 21px;
-    height: 21px;
-  }
-
-  .mobile-social.open .mobile-social-toggle {
-    background: rgba(255, 79, 129, 0.18);
-    border-color: rgba(255, 79, 129, 0.52);
-    transform: rotate(90deg);
-  }
-
-  .mobile-social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    pointer-events: none;
-  }
-
-  .mobile-social-links a {
-    opacity: 0;
-    transform: translateY(14px) scale(0.85);
-    transition:
-      opacity 180ms ease,
-      transform 180ms ease,
-      background 180ms ease,
-      color 180ms ease;
-  }
-
-  .mobile-social.open .mobile-social-links {
-    pointer-events: auto;
-  }
-
-  .mobile-social.open .mobile-social-links a {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  .mobile-social.open .mobile-social-links a:nth-child(1) {
-    transition-delay: 30ms;
-  }
-
-  .mobile-social.open .mobile-social-links a:nth-child(2) {
-    transition-delay: 60ms;
-  }
-
-  .mobile-social.open .mobile-social-links a:nth-child(3) {
-    transition-delay: 90ms;
-  }
-
-  .mobile-social.open .mobile-social-links a:nth-child(4) {
-    transition-delay: 120ms;
-  }
-
-  .mobile-social-links a:hover {
-    background: rgba(255, 79, 129, 0.16);
-    color: #ffffff;
-  }
-
-  .mobile-social-links svg {
-    width: 21px;
-    height: 21px;
-  }
 }
 
-/* Smaller phones */
 @media (max-width: 430px) {
   .topbar {
     padding-top: 14px;
@@ -256,28 +142,18 @@ body,
 
   .mobile-nav-pill {
     width: calc(100vw - 24px);
+    max-width: 370px;
+    padding: 6px;
     gap: 3px;
-    padding: 7px;
   }
 
   .mobile-nav-link,
   .mobile-more-btn {
-    font-size: 0.78rem;
-    padding: 8px 9px;
+    height: 40px;
+    font-size: 0.8rem;
   }
 
   .mobile-more-menu {
-    right: -4px;
-  }
-
-  .mobile-social {
-    left: 14px;
-    bottom: 18px;
-  }
-
-  .mobile-social-toggle,
-  .mobile-social-links a {
-    width: 46px;
-    height: 46px;
+    right: 0;
   }
 }
