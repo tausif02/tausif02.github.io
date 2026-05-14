@@ -308,3 +308,72 @@ body.is-ready .footer {
     font-size: clamp(2rem, 9vw, 3.5rem);
   }
 }
+
+
+/* ========================= */
+/* FINAL MOBILE HOME CENTER  */
+/* ========================= */
+
+@media (max-width: 768px) {
+  .page-main {
+    min-height: 100svh !important;
+    padding: 0 16px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero {
+    width: 100%;
+    min-height: 100svh !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero-container {
+    width: 100%;
+    min-height: 100svh !important;
+    padding: 0 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto !important;
+    text-align: center;
+
+    transform: translateY(-10px) scale(1) !important;
+  }
+
+  body.is-ready .hero-content {
+    transform: translateY(-10px) scale(1) !important;
+  }
+
+  .hero-code-wrap {
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-description {
+    max-width: 92vw;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 118px;
+
+    border-top: 0;
+    padding: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+}
