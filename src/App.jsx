@@ -40,7 +40,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<Work />} />
-        <Route path="/projects" element={<Projects />} />{" "}
+        <Route path="/projects" element={<Projects />} />
         <Route path="/involvements" element={<Involvements />} />
         <Route path="/resume" element={<Placeholder title="Resume" />} />
       </Routes>

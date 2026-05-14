@@ -4,6 +4,12 @@ import "../styles/shared.css";
 
 export default function CursorGlow() {
   useEffect(() => {
+    const isTouchDevice =
+      window.matchMedia("(max-width: 768px)").matches ||
+      window.matchMedia("(pointer: coarse)").matches;
+
+    if (isTouchDevice) return;
+
     const cursorGlow = document.getElementById("cursorGlow");
 
     if (!cursorGlow) return;
@@ -52,8 +58,11 @@ export default function CursorGlow() {
 
     hoverItems.forEach((item, index) => {
       const handleEnter = () => {
-        const isNavLink = item.classList.contains("nav-link");
-        const isSocialLink = item.closest(".social-sidebar");
+        const isNavLink =
+          item.classList.contains("nav-link") ||
+          item.classList.contains("mobile-nav-link");
+        const isSocialLink =
+          item.closest(".social-sidebar") || item.closest(".mobile-social");
 
         if (isNavLink || isSocialLink) {
           cursorGlow.style.opacity = "0";
@@ -64,8 +73,11 @@ export default function CursorGlow() {
       };
 
       const handleLeave = () => {
-        const isNavLink = item.classList.contains("nav-link");
-        const isSocialLink = item.closest(".social-sidebar");
+        const isNavLink =
+          item.classList.contains("nav-link") ||
+          item.classList.contains("mobile-nav-link");
+        const isSocialLink =
+          item.closest(".social-sidebar") || item.closest(".mobile-social");
 
         if (isNavLink || isSocialLink) {
           cursorGlow.style.opacity = "0.9";
