@@ -441,16 +441,16 @@ body.social-ready .social-sidebar a:nth-child(4) {
 /* ========================= */
 
 @media (max-width: 768px) {
-  .home,
-  .home-page,
-  .hero,
-  .hero-section {
+  .hero-mobile-center {
     min-height: 100svh;
-    padding-top: 0 !important;
-    padding-bottom: 105px;
+
+    padding-top: 150px !important;
+    padding-bottom: 120px !important;
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-start;
   }
 }
 
