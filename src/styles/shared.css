@@ -486,3 +486,9 @@ body.social-ready .social-sidebar a:nth-child(4) {
     height: 21px;
   }
 }
+/* Let navbar scroll away only on Work page mobile */
+@media (max-width: 768px) {
+  body.work-mobile-page .topbar {
+    position: absolute;
+  }
+}
