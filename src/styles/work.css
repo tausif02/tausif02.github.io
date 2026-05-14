@@ -633,25 +633,27 @@
   }
 
 
-  .timeline-years::before {
+  .timeline-dial-frame::before {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
+    left: -120%;
+    right: -120%;
     top: 48px;
     height: 1px;
 
     opacity: 0.5;
     background: rgba(255, 255, 255, 0.36);
 
+    transform: translateX(calc(var(--dial-scroll-x, 0px) * -1));
     pointer-events: none;
+    z-index: 2;
   }
 
-  .timeline-years::after {
+  .timeline-dial-frame::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
+    left: -120%;
+    right: -120%;
     top: 39px;
     height: 22px;
 
@@ -663,7 +665,9 @@
       transparent 1px 10px
     );
 
+    transform: translateX(calc(var(--dial-scroll-x, 0px) * -1));
     pointer-events: none;
+    z-index: 2;
   }
 
   .timeline-dial-center-line {
@@ -868,11 +872,11 @@
     border-radius: 999px;
   }
 
-  .timeline-years::before {
+  .timeline-dial-frame::before {
     top: 45px;
   }
 
-  .timeline-years::after {
+  .timeline-dial-frame::after {
     top: 36px;
   }
 

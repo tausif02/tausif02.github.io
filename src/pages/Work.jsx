@@ -470,6 +470,11 @@ export default function Work() {
 
   function handleDialScroll(event) {
     const dial = event.currentTarget;
+    const dialFrame = dial.closest(".timeline-dial-frame");
+
+    if (dialFrame) {
+      dialFrame.style.setProperty("--dial-scroll-x", `${dial.scrollLeft}px`);
+    }
 
     if (!dial || window.innerWidth > 1180) return;
 
