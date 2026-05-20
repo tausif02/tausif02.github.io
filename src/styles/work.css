@@ -65,41 +65,32 @@
   align-items: start;
 }
 
+/* ========================================
+   DESKTOP TIMELINE RAIL
+======================================== */
 .timeline-rail-column {
   position: sticky;
-  top: 0;
+  top: 130px;
   z-index: 80;
-  height: auto;
 
-  margin: 0 0 30px;
-  padding: 8px 0 12px;
+  height: calc(100vh - 160px);
+  min-height: 520px;
 
-  background: transparent;
-
-  opacity: 0;
-  transform: translateY(-12px);
-  pointer-events: none;
-
-  transition:
-    opacity 220ms ease,
-    transform 220ms ease;
-}
-
-.timeline-rail-column.dial-visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
 }
 
 .timeline-rail-sticky {
+  width: 100%;
   height: 100%;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .timeline-rail-header {
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 
 .timeline-mini-label {
@@ -121,17 +112,20 @@
   display: grid;
   grid-template-columns: 1fr 30px;
   gap: 18px;
-  align-items: center;
-  min-height: 650px;
-  height: 100%;
+  align-items: stretch;
+
+  height: min(560px, calc(100vh - 300px));
+  min-height: 430px;
 }
 
 .timeline-years {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
-  min-height: 650px;
+  gap: 18px;
+
+  min-height: 0;
+  height: 100%;
 }
 
 .year {
@@ -139,12 +133,15 @@
   background: transparent;
   border: none;
   text-align: left;
-  font-size: clamp(2rem, 3.6vw, 3rem);
+
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
   font-weight: 500;
   letter-spacing: -0.05em;
+
   color: rgba(255, 255, 255, 0.16);
   opacity: 0.42;
   cursor: pointer;
+
   transition:
     color 0.24s ease,
     opacity 0.24s ease,
@@ -172,7 +169,7 @@
 .timeline-line {
   position: relative;
   width: 6px;
-  height: 650px;
+  height: 100%;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
   overflow: visible;
@@ -219,7 +216,12 @@
   height: 18px;
   border-radius: 50%;
   transform: translate3d(-50%, 0, 0);
-  background: radial-gradient(circle at 35% 35%, #fff8ef 0%, #d8c3a5 48%, #cdb7ff 100%);
+  background: radial-gradient(
+    circle at 35% 35%,
+    #fff8ef 0%,
+    #d8c3a5 48%,
+    #cdb7ff 100%
+  );
   box-shadow:
     0 0 16px rgba(216, 195, 165, 0.58),
     0 0 38px rgba(205, 183, 255, 0.34);
@@ -238,6 +240,11 @@
     transparent 100%
   );
   filter: blur(10px);
+}
+
+/* Hidden on desktop */
+.mobile-timeline-dial {
+  display: none;
 }
 
 /* ========================================
@@ -511,9 +518,11 @@
   0% {
     transform: translate3d(0, 0, 0) scale(1);
   }
+
   50% {
     transform: translate3d(-1%, 1%, 0) scale(1.02);
   }
+
   100% {
     transform: translate3d(1%, -1%, 0) scale(1.03);
   }
@@ -522,7 +531,6 @@
 /* ========================================
    RESPONSIVE / MOBILE YEAR DIAL
 ======================================== */
-
 @media (max-width: 1180px) {
   .work-page {
     width: min(100% - 30px, 1200px);
@@ -552,13 +560,24 @@
   }
 
   .timeline-rail-column {
+    position: static;
+    min-height: 0;
+  }
+
+  .timeline-rail-header,
+  .desktop-timeline-rail {
+    display: none !important;
+  }
+
+  .mobile-timeline-dial {
     position: fixed;
     top: 0;
     left: 14px;
     right: 14px;
     z-index: 900;
 
-    height: auto;
+    display: block;
+
     margin: 0;
     padding: 8px 0 12px;
 
@@ -578,30 +597,10 @@
       transform 220ms ease;
   }
 
-  .timeline-rail-column.dial-visible {
+  .mobile-timeline-dial.dial-visible {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
-  }
-
-  .timeline-rail-sticky {
-    height: auto;
-    min-height: auto;
-    display: block;
-  }
-
-  .timeline-rail-header {
-    display: none;
-  }
-
-  .timeline-rail {
-    min-height: auto;
-    height: auto;
-    display: block;
-  }
-
-  .timeline-line-wrap {
-    display: none;
   }
 
   .timeline-dial-frame {
@@ -640,7 +639,6 @@
     height: 100%;
     overflow: hidden;
   }
-
 
   .timeline-dial-frame::before {
     content: "";
@@ -700,7 +698,8 @@
     z-index: 4;
   }
 
-  .timeline-years {
+  .timeline-dial-frame .timeline-years,
+  .mobile-dial-years {
     position: relative;
     z-index: 3;
 
@@ -722,25 +721,23 @@
 
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
-  
+
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
     cursor: grab;
   }
 
-  .timeline-years:active {
+  .timeline-dial-frame .timeline-years:active,
+  .mobile-dial-years:active {
     cursor: grabbing;
   }
 
-  .year {
-    user-select: none;
-    -webkit-user-select: none;
-  }
-  .timeline-years::-webkit-scrollbar {
+  .timeline-dial-frame .timeline-years::-webkit-scrollbar,
+  .mobile-dial-years::-webkit-scrollbar {
     display: none;
   }
 
-  .year {
+  .timeline-dial-frame .year {
     position: relative;
     flex: 0 0 auto;
 
@@ -768,6 +765,9 @@
     border-radius: 0;
 
     transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+
     transition:
       color 180ms ease,
       opacity 180ms ease,
@@ -775,7 +775,7 @@
       text-shadow 180ms ease;
   }
 
-  .year::after {
+  .timeline-dial-frame .year::after {
     content: "";
     position: absolute;
     left: 50%;
@@ -786,13 +786,13 @@
     background: rgba(255, 255, 255, 0.5);
   }
 
-  .year:hover {
+  .timeline-dial-frame .year:hover {
     color: rgba(255, 255, 255, 0.72);
     opacity: 1;
     transform: none;
   }
 
-  .year.active-year {
+  .timeline-dial-frame .year.active-year {
     color: #ffffff;
     opacity: 1;
     transform: translateY(-4px) scale(1.34);
@@ -801,7 +801,7 @@
       0 0 26px rgba(205, 183, 255, 0.18);
   }
 
-  .year.active-year::after {
+  .timeline-dial-frame .year.active-year::after {
     height: 25px;
     background: rgba(205, 183, 255, 0.95);
     box-shadow:
@@ -869,16 +869,16 @@
     line-height: 1.75;
   }
 
-  .timeline-rail-column {
+  .mobile-timeline-dial {
     top: 0;
     left: 10px;
     right: 10px;
     padding-top: 6px;
-  } 
+  }
 
   .timeline-dial-frame {
     height: 72px;
-    border-radius: 999px;
+    border-radius: 24px;
   }
 
   .timeline-dial-frame::before {
@@ -894,22 +894,23 @@
     height: 34px;
   }
 
-  .timeline-years {
+  .timeline-dial-frame .timeline-years,
+  .mobile-dial-years {
     gap: 28px;
     padding: 13px 44vw 0;
   }
 
-  .year {
+  .timeline-dial-frame .year {
     min-width: 54px;
     height: 46px;
     font-size: 0.72rem;
   }
 
-  .year::after {
+  .timeline-dial-frame .year::after {
     top: 30px;
   }
 
-  .year.active-year {
+  .timeline-dial-frame .year.active-year {
     transform: translateY(-4px) scale(1.32);
   }
 
@@ -961,11 +962,12 @@
     width: min(100% - 18px, 1200px);
   }
 
-  .timeline-years {
+  .timeline-dial-frame .timeline-years,
+  .mobile-dial-years {
     gap: 24px;
   }
 
-  .year {
+  .timeline-dial-frame .year {
     min-width: 50px;
     font-size: 0.68rem;
   }

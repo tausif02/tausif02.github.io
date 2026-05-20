@@ -547,38 +547,30 @@ export default function Work() {
       </section>
 
       <section className="work-layout">
-        <aside
-          className={`timeline-rail-column ${showMobileDial ? "dial-visible" : ""}`}
-        >
+        <aside className="timeline-rail-column">
           <div className="timeline-rail-sticky">
             <div className="timeline-rail-header">
               <p className="timeline-mini-label">Selected Year</p>
               <h2>{yearLabels[activeYear]}</h2>
             </div>
 
-            <div className="timeline-dial-frame">
-              <div className="timeline-dial-track">
-                <div
-                  className="timeline-dial-center-line"
-                  aria-hidden="true"
-                ></div>
-
-                <div className="timeline-years" onScroll={handleDialScroll}>
-                  {yearOrder.map((yearKey) => (
-                    <button
-                      key={yearKey}
-                      ref={(el) => {
-                        yearButtonRefs.current[yearKey] = el;
-                      }}
-                      className={`year ${activeYear === yearKey ? "active-year" : ""}`}
-                      data-year={yearKey}
-                      type="button"
-                      onClick={() => scrollToYear(yearKey)}
-                    >
-                      {yearKey === "present" ? "NOW" : yearKey}
-                    </button>
-                  ))}
-                </div>
+            {/* Desktop vertical timeline */}
+            <div className="timeline-rail desktop-timeline-rail">
+              <div className="timeline-years desktop-timeline-years">
+                {yearOrder.map((yearKey) => (
+                  <button
+                    key={yearKey}
+                    ref={(el) => {
+                      yearButtonRefs.current[yearKey] = el;
+                    }}
+                    className={`year ${activeYear === yearKey ? "active-year" : ""}`}
+                    data-year={yearKey}
+                    type="button"
+                    onClick={() => scrollToYear(yearKey)}
+                  >
+                    {yearKey === "present" ? "NOW" : yearKey}
+                  </button>
+                ))}
               </div>
 
               <div className="timeline-line-wrap">
@@ -589,12 +581,49 @@ export default function Work() {
                       transform: `translateX(-50%) scaleY(${progressScale})`,
                     }}
                   ></div>
+
                   <div
                     className="timeline-glow-dot"
                     style={{
                       transform: `translate3d(-50%, ${dotY - 10}px, 0)`,
                     }}
                   ></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile floating dial */}
+            <div
+              className={`mobile-timeline-dial ${
+                showMobileDial ? "dial-visible" : ""
+              }`}
+            >
+              <div className="timeline-dial-frame">
+                <div className="timeline-dial-track">
+                  <div
+                    className="timeline-dial-center-line"
+                    aria-hidden="true"
+                  ></div>
+
+                  <div
+                    className="timeline-years mobile-dial-years"
+                    onScroll={handleDialScroll}
+                  >
+                    {yearOrder.map((yearKey) => (
+                      <button
+                        key={yearKey}
+                        ref={(el) => {
+                          yearButtonRefs.current[yearKey] = el;
+                        }}
+                        className={`year ${activeYear === yearKey ? "active-year" : ""}`}
+                        data-year={yearKey}
+                        type="button"
+                        onClick={() => scrollToYear(yearKey)}
+                      >
+                        {yearKey === "present" ? "NOW" : yearKey}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
