@@ -561,7 +561,26 @@
 
   .timeline-rail-column {
     position: static;
-    min-height: 0;
+    height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible;
+  }
+
+  .timeline-rail-sticky {
+    height: 0 !important;
+    min-height: 0 !important;
+    display: block;
+  }
+
+  .work-layout {
+    display: block;
+  }
+
+  .timeline-content {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   .timeline-rail-header,
@@ -851,7 +870,7 @@
   }
 
   .work-hero {
-    margin-bottom: 24px;
+    margin-bottom: 34px;
   }
 
   .work-label {
